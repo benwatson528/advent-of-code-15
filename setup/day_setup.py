@@ -1,3 +1,4 @@
+import html
 import re
 import sys
 import urllib.request
@@ -20,10 +21,10 @@ def get_puzzle_name(puzzle_url):
     try:
         with urllib.request.urlopen(puzzle_url) as f:
             print(f"Retrieving contents of {puzzle_url}")
-            entirePage = f.read().decode("utf-8")
-            raw_puzzle_name = re.search("--- (.*) ---", entirePage).group(1).split(": ")[1]
+            entire_page = f.read().decode("utf-8")
+            raw_puzzle_name = html.unescape(re.search("--- (.*) ---", entire_page).group(1).split(": ")[1])
             parsed_puzzle_name = "a_" + raw_puzzle_name if raw_puzzle_name[0].isnumeric() else raw_puzzle_name
-            return parsed_puzzle_name.lower().replace(" ", "_").replace("-", "_")
+            return re.sub(r'[\W_]', '_', parsed_puzzle_name.lower())
     except URLError as e:
         sys.exit(f"Could not get puzzle at {puzzle_url}: {e.reason}")
 
