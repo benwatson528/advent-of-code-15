@@ -37,6 +37,6 @@ def repeats(s, gap):
 
 def twice_pair(s):
     for i in range(1, len(s)):
-        if f"{s[i-1]}{s[i]}" in s[i+1:]:
+        if f"{s[i - 1]}{s[i]}" in s[i + 1:]:
             return True
     return False

@@ -19,6 +19,7 @@ def test_p2_simple():
 def test_p2_real():
     assert solve(read_input("data/input.txt"))[1] == 3842356
 
+
 def read_input(file_name):
     with open(os.path.join(Path(__file__).parent.absolute(), file_name)) as f:
         return [line.split("x") for line in f.read().splitlines()]

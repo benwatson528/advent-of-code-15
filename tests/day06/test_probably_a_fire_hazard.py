@@ -2,7 +2,6 @@ import os
 import re
 from pathlib import Path
 
-
 from main.day06.probably_a_fire_hazard import solve_p1, solve_p2
 
 
