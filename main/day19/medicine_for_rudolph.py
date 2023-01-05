@@ -19,12 +19,12 @@ def reduce_molecule(replacements, starting_molecule) -> int:
         mutation, num_turns = mutations.pop()
         if mutation == "e":
             return num_turns
-        next_move = (mutation, num_turns)
+        next_move = mutation
         for replacement_key, replacement_value in replacements:
             if replacement_key in mutation:
                 for idx in re.finditer(replacement_key, mutation):
                     reduced = mutation[:idx.start()] + replacement_value + mutation[idx.end():]
-                    if len(reduced) <= len(next_move[0]):
-                        next_move = reduced, num_turns + 1
+                    if len(reduced) <= len(next_move):
+                        next_move = reduced
 
-        mutations.append(next_move)
+        mutations.append((next_move, num_turns + 1))
