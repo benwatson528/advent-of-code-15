@@ -1,13 +1,22 @@
 import itertools
 
 
-def solve(you_hp, them, shop) -> int:
+def solve_win(you_hp, them, shop) -> int:
     minimum_spend = 9999
     for damage, armor, spend in get_loadouts(shop):
         you = (you_hp, damage, armor)
         if fight(you, them):
             minimum_spend = min(minimum_spend, spend)
     return minimum_spend
+
+
+def solve_lose(you_hp, them, shop) -> int:
+    maximum_spend = 0
+    for damage, armor, spend in get_loadouts(shop):
+        you = (you_hp, damage, armor)
+        if not fight(you, them):
+            maximum_spend = max(maximum_spend, spend)
+    return maximum_spend
 
 
 def fight(you, them):
