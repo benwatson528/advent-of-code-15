@@ -9,7 +9,7 @@ SPELL_NAMES = {0: "Magic Missile", 1: "Drain", 2: "Shield", 3: "Poison", 4: "Rec
 def solve(hero, boss, hero_drain) -> int:
     minimum_mana_spend = 9999
     # we could DFS over all possible options but this works quickly
-    for _ in range(10000):
+    for _ in range(50000):
         hero_win, mana_spend = fight(dataclasses.replace(hero), dataclasses.replace(boss), hero_drain)
         if hero_win:
             minimum_mana_spend = min(minimum_mana_spend, mana_spend)
