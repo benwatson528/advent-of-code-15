@@ -6,16 +6,17 @@ SPELL_COSTS = {0: 53, 1: 73, 2: 113, 3: 173, 4: 229}
 SPELL_NAMES = {0: "Magic Missile", 1: "Drain", 2: "Shield", 3: "Poison", 4: "Recharge"}
 
 
-def solve(hero, boss) -> int:
+def solve(hero, boss, hero_drain) -> int:
     minimum_mana_spend = 9999
+    # we could DFS over all possible options but this works quickly
     for _ in range(10000):
-        hero_win, mana_spend = fight(dataclasses.replace(hero), dataclasses.replace(boss))
+        hero_win, mana_spend = fight(dataclasses.replace(hero), dataclasses.replace(boss), hero_drain)
         if hero_win:
             minimum_mana_spend = min(minimum_mana_spend, mana_spend)
     return minimum_mana_spend
 
 
-def fight(hero, boss):
+def fight(hero, boss, hero_drain):
     active_effects = []
     hero_turn = True
     while hero.hp > 0:
@@ -23,6 +24,9 @@ def fight(hero, boss):
         if boss.hp <= 0:
             return True, hero.get_mana_spent()
         if hero_turn:
+            hero.hp -= 1 if hero_drain else 0
+            if hero.hp <= 0:
+                return False, hero.get_mana_spent()
             if (spell := choose_spell(active_effects, hero)) is None:
                 return False, hero.get_mana_spent()
             if spell_effect := cast_spell(hero, boss, spell):
