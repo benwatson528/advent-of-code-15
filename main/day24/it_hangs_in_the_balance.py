@@ -2,8 +2,8 @@ import math
 from itertools import combinations
 
 
-def solve(packages) -> int:
-    weight_per_compartment = sum(packages) // 3
+def solve(packages, num_compartments) -> int:
+    weight_per_compartment = sum(packages) // num_compartments
     return arrange_packages(packages, weight_per_compartment)
 
 
