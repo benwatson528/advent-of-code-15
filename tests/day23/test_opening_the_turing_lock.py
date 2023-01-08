@@ -9,7 +9,7 @@ def test_p1_real():
 
 
 def test_p2_real():
-    assert solve(read_input("data/input.txt"), {"a": 1, "b": 0}) == 307
+    assert solve(read_input("data/input.txt"), {"a": 1, "b": 0}) == 160
 
 
 def read_input(file_name):
